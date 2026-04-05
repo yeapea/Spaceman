@@ -45,6 +45,12 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Install swift-format
+        run: |
+          if ! command -v swift-format >/dev/null 2>&1; then
+            brew install swift-format
+          fi
+
       - name: Run swift-format lint
         run: |
           swift-format lint \

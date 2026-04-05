@@ -58,7 +58,7 @@ final class IconCreator {
 
         for space in spaces {
             let textRect = NSRect(origin: CGPoint.zero, size: iconSize)
-            let spaceNumber = NSString(string: String(space.spaceNumber))
+            let spaceNumber = String(space.spaceNumber)
             let attributes = getStringAttributes(
                 alpha: space.isCurrentSpace ? 1 : 0.4,
                 fontSize: 12)
@@ -83,7 +83,7 @@ final class IconCreator {
             let number = desktopsOnly ? space.desktopNumber : space.spaceNumber
             let numberImage = NSImage(size: iconSize, flipped: false) { _ in
                 if let number {
-                    let spaceNumber = NSString(string: String(number))
+                    let spaceNumber = String(number)
                     spaceNumber.drawVerticallyCentered(
                         in: textRect,
                         withAttributes: self.getStringAttributes(alpha: 1))
@@ -120,7 +120,7 @@ final class IconCreator {
 
         for space in spaces {
             let textRect = NSRect(origin: CGPoint.zero, size: iconSize)
-            let spaceText = NSString(string: "\(space.spaceNumber): \(space.spaceName.uppercased())")
+            let spaceText = "\(space.spaceNumber): \(space.spaceName.uppercased())"
             let textImage = NSImage(size: iconSize, flipped: false) { _ in
                 spaceText.drawVerticallyCentered(
                     in: textRect,

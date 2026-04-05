@@ -5,10 +5,11 @@
 //  Created by Sasindu Jayasinghe on 24/11/20.
 //
 
+import AppKit
 import Foundation
 import KeyboardShortcuts
 
-extension NSString {
+extension String {
     func drawVerticallyCentered(in rect: CGRect, withAttributes attributes: [NSAttributedString.Key: Any]? = nil) {
         let size = self.size(withAttributes: attributes)
         let centeredRect = CGRect(

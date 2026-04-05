@@ -8,7 +8,6 @@
 import Foundation
 
 enum Constants {
-
     enum AppInfo {
         static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         static let repo: URL = {
@@ -24,5 +23,4 @@ enum Constants {
             return url
         }()
     }
-
 }
