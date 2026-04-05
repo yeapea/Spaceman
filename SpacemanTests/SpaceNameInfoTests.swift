@@ -32,4 +32,20 @@ final class SpaceNameInfoTests: XCTestCase {
         set.insert(SpaceNameInfo(spaceNum: 2, spaceName: "WEB"))
         XCTAssertEqual(set.count, 2)
     }
+
+    func testInitTruncatesName() {
+        let info = SpaceNameInfo(spaceNum: 1, spaceName: "TOOLONG")
+        XCTAssertEqual(info.spaceName.count, Constants.Layout.maxSpaceNameLength)
+        XCTAssertEqual(info.spaceName, "TOO")
+    }
+
+    func testDecodeTruncatesName() throws {
+        // Simulate a plist persisted by an older build that allowed
+        // longer names. Decoding must re-truncate.
+        let json = Data(#"{"spaceNum":2,"spaceName":"OVERLONG"}"#.utf8)
+        let decoded = try JSONDecoder().decode(SpaceNameInfo.self, from: json)
+        XCTAssertEqual(decoded.spaceName.count, Constants.Layout.maxSpaceNameLength)
+        XCTAssertEqual(decoded.spaceName, "OVE")
+        XCTAssertEqual(decoded.spaceNum, 2)
+    }
 }

@@ -10,12 +10,12 @@ import Foundation
 
 final class IconCreator {
     private let defaults = UserDefaults.standard
-    private var iconSize = NSSize(width: 18, height: 12)
-    private let gapWidth = CGFloat(5)
-    private let displayGapWidth = CGFloat(15)
+    private var iconSize = Constants.Layout.iconSize
+    private let gapWidth = Constants.Layout.gapWidth
+    private let displayGapWidth = Constants.Layout.displayGapWidth
 
     func getIcon(for spaces: [Space]) -> NSImage {
-        iconSize.width = 18
+        iconSize.width = Constants.Layout.iconSize.width
         let spacemanStyle = SpacemanStyle(rawValue: defaults.integer(forKey: "displayStyle"))
         var icons = [NSImage]()
 
@@ -43,7 +43,7 @@ final class IconCreator {
         case .desktopNumbersAndRects:
             icons = createRectWithNumbersIcons(icons, spaces, desktopsOnly: true)
         case .text:
-            iconSize.width = 49
+            iconSize.width = Constants.Layout.textIconWidth
             icons = createNamedIcons(icons, spaces)
         default:
             break

@@ -171,10 +171,14 @@ struct PreferencesView: View {
                 }
             }
             TextField(
-                "Name (max 3 char.)",
+                "Name (max \(Constants.Layout.maxSpaceNameLength) char.)",
                 text: Binding(
-                    get: {prefsVM.spaceName},
-                    set: {prefsVM.spaceName = $0.prefix(3).trimmingCharacters(in: .whitespacesAndNewlines)}),
+                    get: { prefsVM.spaceName },
+                    set: {
+                        prefsVM.spaceName = $0
+                            .prefix(Constants.Layout.maxSpaceNameLength)
+                            .trimmingCharacters(in: .whitespacesAndNewlines)
+                    }),
                 onCommit: updateName)
 
             Button("Update name") {
