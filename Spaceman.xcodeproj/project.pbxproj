@@ -32,6 +32,8 @@
 		AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F3 /* SpaceModelTests.swift */; };
 		B00100000000000000000B01 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A01 /* Log.swift */; };
 		B00100000000000000000B02 /* NotificationName+Spaceman.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A02 /* NotificationName+Spaceman.swift */; };
+		B00100000000000000000B03 /* SpaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A03 /* SpaceParser.swift */; };
+		AA01000000000000000001F4 /* SpaceParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F4 /* SpaceParserTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -72,6 +74,8 @@
 		AA01000000000000000000F3 /* SpaceModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceModelTests.swift; sourceTree = "<group>"; };
 		B00100000000000000000A01 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
 		B00100000000000000000A02 /* NotificationName+Spaceman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Spaceman.swift"; sourceTree = "<group>"; };
+		B00100000000000000000A03 /* SpaceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParser.swift; sourceTree = "<group>"; };
+		AA01000000000000000000F4 /* SpaceParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -129,6 +133,7 @@
 				AA01000000000000000000F1 /* SpacemanStyleTests.swift */,
 				AA01000000000000000000F2 /* SpaceNameInfoTests.swift */,
 				AA01000000000000000000F3 /* SpaceModelTests.swift */,
+				AA01000000000000000000F4 /* SpaceParserTests.swift */,
 			);
 			path = SpacemanTests;
 			sourceTree = "<group>";
@@ -165,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				E8733506256B57400012586E /* SpaceObserver.swift */,
+				B00100000000000000000A03 /* SpaceParser.swift */,
 				E8733510256B779B0012586E /* IconCreator.swift */,
 			);
 			path = Helpers;
@@ -342,6 +348,7 @@
 				E87334EB256B51CF0012586E /* PreferencesView.swift in Sources */,
 				E8C5AFF52580848100614F50 /* AboutView.swift in Sources */,
 				E8733507256B57400012586E /* SpaceObserver.swift in Sources */,
+				B00100000000000000000B03 /* SpaceParser.swift in Sources */,
 				E8733511256B779B0012586E /* IconCreator.swift in Sources */,
 				E87334E9256B51CF0012586E /* AppDelegate.swift in Sources */,
 				E8E2AF03257CB5CE00319BBC /* SpaceNameInfo.swift in Sources */,
@@ -362,6 +369,7 @@
 				AA01000000000000000001F1 /* SpacemanStyleTests.swift in Sources */,
 				AA01000000000000000001F2 /* SpaceNameInfoTests.swift in Sources */,
 				AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */,
+				AA01000000000000000001F4 /* SpaceParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
