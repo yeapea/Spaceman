@@ -13,7 +13,7 @@ struct PreferencesView: View {
 
     weak var parentWindow: PreferencesWindow?
 
-    @AppStorage("displayStyle") private var selectedStyle = 0
+    @AppStorage("displayStyle") private var selectedStyle: SpacemanStyle = .rectangles
     @AppStorage("spaceNames") private var data = Data()
     @AppStorage("autoRefreshSpaces") private var autoRefreshSpaces = false
     @State private var prefsVM = PreferencesViewModel()
@@ -55,6 +55,7 @@ struct PreferencesView: View {
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(.leading, 12)
+                .accessibilityLabel("Close preferences")
                 Spacer()
             }
             Spacer()
@@ -131,7 +132,7 @@ struct PreferencesView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 spacesStylePicker
-                spaceNameEditor.disabled(selectedStyle != SpacemanStyle.text.rawValue)
+                spaceNameEditor.disabled(selectedStyle != .text)
             }
             .padding()
 
@@ -150,11 +151,11 @@ struct PreferencesView: View {
     // MARK: - Style Picker
     private var spacesStylePicker: some View {
         Picker(selection: $selectedStyle, label: Text("Style")) {
-            Text("Rectangles").tag(SpacemanStyle.rectangles.rawValue)
-            Text("Numbers").tag(SpacemanStyle.numbers.rawValue)
-            Text("Rectangles with numbers").tag(SpacemanStyle.numbersAndRects.rawValue)
-            Text("Rectangles with desktop numbers").tag(SpacemanStyle.desktopNumbersAndRects.rawValue)
-            Text("Named spaces").tag(SpacemanStyle.text.rawValue)
+            Text("Rectangles").tag(SpacemanStyle.rectangles)
+            Text("Numbers").tag(SpacemanStyle.numbers)
+            Text("Rectangles with numbers").tag(SpacemanStyle.numbersAndRects)
+            Text("Rectangles with desktop numbers").tag(SpacemanStyle.desktopNumbersAndRects)
+            Text("Named spaces").tag(SpacemanStyle.text)
         }
         .onChange(of: selectedStyle) {
             NotificationCenter.default.post(name: .spacemanRefresh, object: nil)

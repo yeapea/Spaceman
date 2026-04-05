@@ -65,6 +65,9 @@ final class StatusBar: NSObject, SPUStandardUserDriverDelegate {
     func updateStatusBar(withIcon icon: NSImage) {
         if let statusBarButton = statusBarItem.button {
             statusBarButton.image = icon
+            // VoiceOver-only label. The image itself is a composited
+            // template glyph that has no meaningful per-pixel description.
+            statusBarButton.setAccessibilityLabel("Spaceman: macOS Spaces overview")
         }
     }
 
