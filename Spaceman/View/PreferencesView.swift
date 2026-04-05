@@ -150,7 +150,7 @@ struct PreferencesView: View {
     // MARK: - Style Picker
     private var spacesStylePicker: some View {
         Picker(selection: $selectedStyle, label: Text("Style")) {
-            Text("Rectangles").tag(SpacemanStyle.none.rawValue)
+            Text("Rectangles").tag(SpacemanStyle.rectangles.rawValue)
             Text("Numbers").tag(SpacemanStyle.numbers.rawValue)
             Text("Rectangles with numbers").tag(SpacemanStyle.numbersAndRects.rawValue)
             Text("Rectangles with desktop numbers").tag(SpacemanStyle.desktopNumbersAndRects.rawValue)

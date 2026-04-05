@@ -11,7 +11,7 @@ final class SpacemanStyleTests: XCTestCase {
         // These raw values are persisted in UserDefaults under key "displayStyle".
         // Changing them silently would migrate every existing user to a
         // different render style. Guard with explicit expectations.
-        XCTAssertEqual(SpacemanStyle.none.rawValue, 0)
+        XCTAssertEqual(SpacemanStyle.rectangles.rawValue, 0)
         XCTAssertEqual(SpacemanStyle.numbers.rawValue, 1)
         XCTAssertEqual(SpacemanStyle.numbersAndRects.rawValue, 2)
         XCTAssertEqual(SpacemanStyle.desktopNumbersAndRects.rawValue, 3)
@@ -19,7 +19,7 @@ final class SpacemanStyleTests: XCTestCase {
     }
 
     func testRoundTripsThroughRawValue() {
-        for style in [SpacemanStyle.none, .numbers, .numbersAndRects, .desktopNumbersAndRects, .text] {
+        for style in [SpacemanStyle.rectangles, .numbers, .numbersAndRects, .desktopNumbersAndRects, .text] {
             XCTAssertEqual(SpacemanStyle(rawValue: style.rawValue), style)
         }
     }
