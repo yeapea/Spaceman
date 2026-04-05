@@ -18,9 +18,9 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
 
         spaceObserver.delegate = self
         spaceObserver.updateSpaceInformation()
-        NSApp.activate(ignoringOtherApps: true)
-        KeyboardShortcuts.onKeyUp(for: .refresh) { [] in
-            self.spaceObserver.updateSpaceInformation()
+        NSApp.activate()
+        KeyboardShortcuts.onKeyUp(for: .refresh) { [weak self] in
+            self?.spaceObserver.updateSpaceInformation()
         }
     }
 

@@ -27,7 +27,24 @@
 		E8E8D41C2585A80B00671AE9 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = E8E8D41B2585A80B00671AE9 /* KeyboardShortcuts */; };
 		E8EBF08C2575F8E4001BA74F /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E8EBF08B2575F8E4001BA74F /* LaunchAtLogin */; };
 		E8EBF091257739ED001BA74F /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF090257739ED001BA74F /* PreferencesWindow.swift */; };
+		AA01000000000000000001F1 /* SpacemanStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F1 /* SpacemanStyleTests.swift */; };
+		AA01000000000000000001F2 /* SpaceNameInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F2 /* SpaceNameInfoTests.swift */; };
+		AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F3 /* SpaceModelTests.swift */; };
+		B00100000000000000000B01 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A01 /* Log.swift */; };
+		B00100000000000000000B02 /* NotificationName+Spaceman.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A02 /* NotificationName+Spaceman.swift */; };
+		B00100000000000000000B03 /* SpaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A03 /* SpaceParser.swift */; };
+		AA01000000000000000001F4 /* SpaceParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F4 /* SpaceParserTests.swift */; };
 /* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		AA01000000000000000000E8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = E87334DD256B51CF0012586E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = E87334E4256B51CF0012586E;
+			remoteInfo = Spaceman;
+		};
+/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		E828E6542737CBA0007075E8 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
@@ -51,6 +68,14 @@
 		E8E2AEFE257CB5AF00319BBC /* SpacemanStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacemanStyle.swift; sourceTree = "<group>"; };
 		E8E2AF02257CB5CE00319BBC /* SpaceNameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceNameInfo.swift; sourceTree = "<group>"; };
 		E8EBF090257739ED001BA74F /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
+		AA01000000000000000000E3 /* SpacemanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpacemanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA01000000000000000000F1 /* SpacemanStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacemanStyleTests.swift; sourceTree = "<group>"; };
+		AA01000000000000000000F2 /* SpaceNameInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceNameInfoTests.swift; sourceTree = "<group>"; };
+		AA01000000000000000000F3 /* SpaceModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceModelTests.swift; sourceTree = "<group>"; };
+		B00100000000000000000A01 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		B00100000000000000000A02 /* NotificationName+Spaceman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Spaceman.swift"; sourceTree = "<group>"; };
+		B00100000000000000000A03 /* SpaceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParser.swift; sourceTree = "<group>"; };
+		AA01000000000000000000F4 /* SpaceParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -64,6 +89,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		AA01000000000000000000E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -71,6 +103,8 @@
 			isa = PBXGroup;
 			children = (
 				E828E6572737D2E4007075E8 /* Constants.swift */,
+				B00100000000000000000A01 /* Log.swift */,
+				B00100000000000000000A02 /* NotificationName+Spaceman.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -79,6 +113,7 @@
 			isa = PBXGroup;
 			children = (
 				E87334E7256B51CF0012586E /* Spaceman */,
+				AA01000000000000000000E2 /* SpacemanTests */,
 				E87334E6256B51CF0012586E /* Products */,
 			);
 			sourceTree = "<group>";
@@ -87,8 +122,20 @@
 			isa = PBXGroup;
 			children = (
 				E87334E5256B51CF0012586E /* Spaceman.app */,
+				AA01000000000000000000E3 /* SpacemanTests.xctest */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		AA01000000000000000000E2 /* SpacemanTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA01000000000000000000F1 /* SpacemanStyleTests.swift */,
+				AA01000000000000000000F2 /* SpaceNameInfoTests.swift */,
+				AA01000000000000000000F3 /* SpaceModelTests.swift */,
+				AA01000000000000000000F4 /* SpaceParserTests.swift */,
+			);
+			path = SpacemanTests;
 			sourceTree = "<group>";
 		};
 		E87334E7256B51CF0012586E /* Spaceman */ = {
@@ -123,6 +170,7 @@
 			isa = PBXGroup;
 			children = (
 				E8733506256B57400012586E /* SpaceObserver.swift */,
+				B00100000000000000000A03 /* SpaceParser.swift */,
 				E8733510256B779B0012586E /* IconCreator.swift */,
 			);
 			path = Helpers;
@@ -184,6 +232,24 @@
 			productReference = E87334E5256B51CF0012586E /* Spaceman.app */;
 			productType = "com.apple.product-type.application";
 		};
+		AA01000000000000000000E1 /* SpacemanTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA01000000000000000000E9 /* Build configuration list for PBXNativeTarget "SpacemanTests" */;
+			buildPhases = (
+				AA01000000000000000000E4 /* Sources */,
+				AA01000000000000000000E5 /* Frameworks */,
+				AA01000000000000000000E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA01000000000000000000E7 /* PBXTargetDependency */,
+			);
+			name = SpacemanTests;
+			productName = SpacemanTests;
+			productReference = AA01000000000000000000E3 /* SpacemanTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -196,6 +262,10 @@
 				TargetAttributes = {
 					E87334E4256B51CF0012586E = {
 						CreatedOnToolsVersion = 12.2;
+					};
+					AA01000000000000000000E1 = {
+						CreatedOnToolsVersion = 16.0;
+						TestTargetID = E87334E4256B51CF0012586E;
 					};
 				};
 			};
@@ -218,6 +288,7 @@
 			projectRoot = "";
 			targets = (
 				E87334E4256B51CF0012586E /* Spaceman */,
+				AA01000000000000000000E1 /* SpacemanTests */,
 			);
 		};
 /* End PBXProject section */
@@ -230,6 +301,13 @@
 				E87334F3256B51CF0012586E /* Main.storyboard in Resources */,
 				E87334F0256B51CF0012586E /* Preview Assets.xcassets in Resources */,
 				E87334ED256B51CF0012586E /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA01000000000000000000E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +348,7 @@
 				E87334EB256B51CF0012586E /* PreferencesView.swift in Sources */,
 				E8C5AFF52580848100614F50 /* AboutView.swift in Sources */,
 				E8733507256B57400012586E /* SpaceObserver.swift in Sources */,
+				B00100000000000000000B03 /* SpaceParser.swift in Sources */,
 				E8733511256B779B0012586E /* IconCreator.swift in Sources */,
 				E87334E9256B51CF0012586E /* AppDelegate.swift in Sources */,
 				E8E2AF03257CB5CE00319BBC /* SpaceNameInfo.swift in Sources */,
@@ -278,10 +357,31 @@
 				E828E6582737D2E4007075E8 /* Constants.swift in Sources */,
 				E828E6552737CBA0007075E8 /* VisualEffectView.swift in Sources */,
 				E8733517256C6F3A0012586E /* Extensions.swift in Sources */,
+				B00100000000000000000B01 /* Log.swift in Sources */,
+				B00100000000000000000B02 /* NotificationName+Spaceman.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AA01000000000000000000E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA01000000000000000001F1 /* SpacemanStyleTests.swift in Sources */,
+				AA01000000000000000001F2 /* SpaceNameInfoTests.swift in Sources */,
+				AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */,
+				AA01000000000000000001F4 /* SpaceParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		AA01000000000000000000E7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = E87334E4256B51CF0012586E /* Spaceman */;
+			targetProxy = AA01000000000000000000E8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		E87334F1256B51CF0012586E /* Main.storyboard */ = {
@@ -480,6 +580,50 @@
 			};
 			name = Release;
 		};
+		AA01000000000000000000EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P2Q7LG69J2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.jaysce.SpacemanTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spaceman.app/Contents/MacOS/Spaceman";
+			};
+			name = Debug;
+		};
+		AA01000000000000000000EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P2Q7LG69J2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.jaysce.SpacemanTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spaceman.app/Contents/MacOS/Spaceman";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -497,6 +641,15 @@
 			buildConfigurations = (
 				E87334F9256B51CF0012586E /* Debug */,
 				E87334FA256B51CF0012586E /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		AA01000000000000000000E9 /* Build configuration list for PBXNativeTarget "SpacemanTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA01000000000000000000EA /* Debug */,
+				AA01000000000000000000EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
