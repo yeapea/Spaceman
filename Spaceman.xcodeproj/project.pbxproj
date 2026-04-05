@@ -30,6 +30,8 @@
 		AA01000000000000000001F1 /* SpacemanStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F1 /* SpacemanStyleTests.swift */; };
 		AA01000000000000000001F2 /* SpaceNameInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F2 /* SpaceNameInfoTests.swift */; };
 		AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F3 /* SpaceModelTests.swift */; };
+		B00100000000000000000B01 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A01 /* Log.swift */; };
+		B00100000000000000000B02 /* NotificationName+Spaceman.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A02 /* NotificationName+Spaceman.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +70,8 @@
 		AA01000000000000000000F1 /* SpacemanStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacemanStyleTests.swift; sourceTree = "<group>"; };
 		AA01000000000000000000F2 /* SpaceNameInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceNameInfoTests.swift; sourceTree = "<group>"; };
 		AA01000000000000000000F3 /* SpaceModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceModelTests.swift; sourceTree = "<group>"; };
+		B00100000000000000000A01 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		B00100000000000000000A02 /* NotificationName+Spaceman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Spaceman.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -95,6 +99,8 @@
 			isa = PBXGroup;
 			children = (
 				E828E6572737D2E4007075E8 /* Constants.swift */,
+				B00100000000000000000A01 /* Log.swift */,
+				B00100000000000000000A02 /* NotificationName+Spaceman.swift */,
 			);
 			path = Utilities;
 			sourceTree = "<group>";
@@ -344,6 +350,8 @@
 				E828E6582737D2E4007075E8 /* Constants.swift in Sources */,
 				E828E6552737CBA0007075E8 /* VisualEffectView.swift in Sources */,
 				E8733517256C6F3A0012586E /* Extensions.swift in Sources */,
+				B00100000000000000000B01 /* Log.swift in Sources */,
+				B00100000000000000000B02 /* NotificationName+Spaceman.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

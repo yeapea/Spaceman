@@ -8,7 +8,7 @@
 import Cocoa
 import Foundation
 
-class SpaceObserver {
+final class SpaceObserver {
     private struct DisplayInfo {
         let activeSpaceID: Int
         let spaces: [[String: Any]]
@@ -35,12 +35,18 @@ class SpaceObserver {
         NotificationCenter.default.addObserver(
             self,
             selector: #selector(updateSpaceInformation),
-            name: NSNotification.Name("ButtonPressed"),
+            name: .spacemanRefresh,
             object: nil)
+    }
+
+    deinit {
+        workspace.notificationCenter.removeObserver(self)
+        NotificationCenter.default.removeObserver(self)
     }
 
     @objc public func updateSpaceInformation() {
         guard let displays = CGSCopyManagedDisplaySpaces(conn) as? [[String: Any]] else {
+            Log.spaceObserver.error("CGSCopyManagedDisplaySpaces returned unexpected shape")
             return
         }
 
@@ -51,13 +57,12 @@ class SpaceObserver {
 
         for display in displays {
             guard let parsedDisplay = parseDisplay(display) else {
+                Log.spaceObserver.warning("Skipping display with unexpected payload")
                 continue
             }
 
             if parsedDisplay.activeSpaceID == -1 {
-                DispatchQueue.main.async {
-                    print("Can't find current space")
-                }
+                Log.spaceObserver.error("Cannot find current space for display \(parsedDisplay.displayID, privacy: .public)")
                 return
             }
 

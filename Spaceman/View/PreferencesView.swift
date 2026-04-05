@@ -158,7 +158,7 @@ struct PreferencesView: View {
             Text("Named spaces").tag(SpacemanStyle.text.rawValue)
         }
         .onChange(of: selectedStyle) {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ButtonPressed"), object: nil)
+            NotificationCenter.default.post(name: .spacemanRefresh, object: nil)
         }
     }
 
@@ -189,7 +189,7 @@ struct PreferencesView: View {
         if let encoded = try? PropertyListEncoder().encode(prefsVM.spaceNamesDict) {
             self.data = encoded
         }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ButtonPressed"), object: nil)
+        NotificationCenter.default.post(name: .spacemanRefresh, object: nil)
     }
 }
 
