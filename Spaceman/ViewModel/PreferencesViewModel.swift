@@ -6,18 +6,20 @@
 //
 
 import Foundation
-import SwiftUI
+import Observation
 
-final class PreferencesViewModel: ObservableObject {
-    @AppStorage("autoRefreshSpaces") private var autoRefreshSpaces = false
-    @Published var selectedSpace = 0
-    @Published var spaceName = ""
+@MainActor
+@Observable
+final class PreferencesViewModel {
+    var selectedSpace = 0
+    var spaceName = ""
     var spaceNamesDict: [String: SpaceNameInfo] = [:]
     var sortedSpaceNamesDict: [Dictionary<String, SpaceNameInfo>.Element] = []
-    private var timer: Timer?
+
+    @ObservationIgnored private var timer: Timer?
 
     init() {
-        if autoRefreshSpaces {
+        if UserDefaults.standard.bool(forKey: "autoRefreshSpaces") {
             startTimer()
         }
     }
@@ -54,7 +56,9 @@ final class PreferencesViewModel: ObservableObject {
     func startTimer() {
         timer?.invalidate()
         timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
-            self?.refreshSpaces()
+            Task { @MainActor in
+                self?.refreshSpaces()
+            }
         }
     }
 

@@ -16,7 +16,7 @@ struct PreferencesView: View {
     @AppStorage("displayStyle") private var selectedStyle = 0
     @AppStorage("spaceNames") private var data = Data()
     @AppStorage("autoRefreshSpaces") private var autoRefreshSpaces = false
-    @StateObject private var prefsVM = PreferencesViewModel()
+    @State private var prefsVM = PreferencesViewModel()
 
     // MARK: - Main Body
     var body: some View {
@@ -36,7 +36,7 @@ struct PreferencesView: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .onAppear(perform: prefsVM.loadData)
+        .onAppear { prefsVM.loadData() }
         .onChange(of: data) {
             prefsVM.loadData()
         }
@@ -163,7 +163,8 @@ struct PreferencesView: View {
 
     // MARK: - Space Name Editor
     private var spaceNameEditor: some View {
-        HStack {
+        @Bindable var prefsVM = prefsVM
+        return HStack {
             Picker(selection: $prefsVM.selectedSpace, label: Text("Space")) {
                 ForEach(0..<prefsVM.sortedSpaceNamesDict.count, id: \.self) {
                     Text(String(prefsVM.sortedSpaceNamesDict[$0].value.spaceNum))
