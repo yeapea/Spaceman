@@ -35,6 +35,7 @@ final class SpaceObserver {
     @objc public func updateSpaceInformation() {
         guard let displays = CGSCopyManagedDisplaySpaces(conn) as? [[String: Any]] else {
             Log.spaceObserver.error("CGSCopyManagedDisplaySpaces returned unexpected shape")
+            delegate?.didFailToObserveSpaces()
             return
         }
 
@@ -51,6 +52,7 @@ final class SpaceObserver {
 
             if parsedDisplay.activeSpaceID == -1 {
                 Log.spaceObserver.error("Cannot find current space for display \(parsedDisplay.displayID, privacy: .public)")
+                delegate?.didFailToObserveSpaces()
                 return
             }
 
@@ -78,4 +80,8 @@ final class SpaceObserver {
 
 protocol SpaceObserverDelegate: AnyObject {
     func didUpdateSpaces(spaces: [Space])
+    /// Called when the CGS SPI returns data that cannot be interpreted.
+    /// Implementations should present a user-visible fallback so the
+    /// breakage is diagnosable rather than silent.
+    func didFailToObserveSpaces()
 }

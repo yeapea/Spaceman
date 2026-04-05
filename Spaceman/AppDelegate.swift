@@ -32,6 +32,10 @@ extension AppDelegate: SpaceObserverDelegate {
         let icon = iconCreator.getIcon(for: spaces)
         statusBar.updateStatusBar(withIcon: icon)
     }
+
+    func didFailToObserveSpaces() {
+        statusBar.updateStatusBar(withIcon: iconCreator.getFallbackIcon())
+    }
 }
 
 @main
