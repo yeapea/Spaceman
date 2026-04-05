@@ -167,8 +167,9 @@ struct PreferencesView: View {
         @Bindable var prefsVM = prefsVM
         return HStack {
             Picker(selection: $prefsVM.selectedSpace, label: Text("Space")) {
-                ForEach(0..<prefsVM.sortedSpaceNamesDict.count, id: \.self) {
-                    Text(String(prefsVM.sortedSpaceNamesDict[$0].value.spaceNum))
+                ForEach(0..<prefsVM.sortedSpaceNamesDict.count, id: \.self) { index in
+                    let info = prefsVM.sortedSpaceNamesDict[index].value
+                    Text("\(info.spaceNum) — \(info.spaceName)")
                 }
             }
             TextField(
