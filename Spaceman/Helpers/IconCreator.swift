@@ -8,12 +8,11 @@
 import AppKit
 import Foundation
 
-class IconCreator {
+final class IconCreator {
     private let defaults = UserDefaults.standard
     private var iconSize = NSSize(width: 18, height: 12)
     private let gapWidth = CGFloat(5)
     private let displayGapWidth = CGFloat(15)
-    private var displayCount = 1
 
     func getIcon(for spaces: [Space]) -> NSImage {
         iconSize.width = 18
@@ -50,8 +49,8 @@ class IconCreator {
             break
         }
 
-        let iconsWithDisplayProperties = getIconsWithDisplayProps(icons: icons, spaces: spaces)
-        return mergeIcons(iconsWithDisplayProperties)
+        let (iconsWithDisplayProperties, displayCount) = getIconsWithDisplayProps(icons: icons, spaces: spaces)
+        return mergeIcons(iconsWithDisplayProperties, displayCount: displayCount)
     }
 
     private func createNumberedIcons(_ spaces: [Space]) -> [NSImage] {
@@ -66,8 +65,9 @@ class IconCreator {
             spaceNumber.drawVerticallyCentered(
                 in: textRect,
                 withAttributes: getStringAttributes(
-                    alpha: !space.isCurrentSpace ? 0.4 : 1,
+                    alpha: space.isCurrentSpace ? 1 : 0.4,
                     fontSize: 12))
+            image.isTemplate = true
             image.unlockFocus()
 
             newIcons.append(image)
@@ -153,10 +153,10 @@ class IconCreator {
         return newIcons
     }
 
-    func getIconsWithDisplayProps(icons: [NSImage], spaces: [Space]) -> [(NSImage, Bool)] {
+    func getIconsWithDisplayProps(icons: [NSImage], spaces: [Space]) -> (icons: [(NSImage, Bool)], displayCount: Int) {
         var iconsWithDisplayProperties = [(NSImage, Bool)]()
         var currentDisplayID = spaces[0].displayID
-        displayCount = 1
+        var displayCount = 1
 
         for index in 0 ..< spaces.count {
             var nextSpaceIsOnDifferentDisplay = false
@@ -173,10 +173,13 @@ class IconCreator {
             iconsWithDisplayProperties.append((icons[index], nextSpaceIsOnDifferentDisplay))
         }
 
-        return iconsWithDisplayProperties
+        return (iconsWithDisplayProperties, displayCount)
     }
 
-    func mergeIcons(_ iconsWithDisplayProperties: [(image: NSImage, nextSpaceOnDifferentDisplay: Bool)]) -> NSImage {
+    func mergeIcons(
+        _ iconsWithDisplayProperties: [(image: NSImage, nextSpaceOnDifferentDisplay: Bool)],
+        displayCount: Int
+    ) -> NSImage {
         let numIcons = iconsWithDisplayProperties.count
         let combinedIconWidth = CGFloat(numIcons) * iconSize.width
         let accomodatingGapWidth = CGFloat(numIcons - 1) * gapWidth

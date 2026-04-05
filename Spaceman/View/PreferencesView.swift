@@ -110,7 +110,7 @@ struct PreferencesView: View {
                     .fontWeight(.semibold)
                 LaunchAtLogin.Toggle {Text("Launch Spaceman at login")}
                 Toggle("Refresh spaces in background", isOn: $autoRefreshSpaces)
-                shortcutRecorder.disabled(autoRefreshSpaces ? true : false)
+                shortcutRecorder.disabled(autoRefreshSpaces)
             }
             .padding()
             .onChange(of: autoRefreshSpaces) { _, enabled in
@@ -130,9 +130,8 @@ struct PreferencesView: View {
                 Text("Spaces")
                     .font(.title2)
                     .fontWeight(.semibold)
-//                Toggle("Use single icon indicator", isOn: .constant(false)) // TODO: Implement this
                 spacesStylePicker
-                spaceNameEditor.disabled(selectedStyle != SpacemanStyle.text.rawValue ? true : false)
+                spaceNameEditor.disabled(selectedStyle != SpacemanStyle.text.rawValue)
             }
             .padding()
 
@@ -193,8 +192,6 @@ struct PreferencesView: View {
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        PreferencesView()
-    }
+#Preview {
+    PreferencesView()
 }
