@@ -29,14 +29,24 @@ enum Constants {
     enum AppInfo {
         static let appVersion = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String
         static let repo: URL = {
-            guard let url = URL(string: "https://github.com/Jaysce/Spaceman") else {
+            guard let url = URL(string: "https://github.com/yeapea/Spaceman") else {
                 fatalError("Invalid repository URL")
             }
             return url
         }()
-        static let website: URL = {
-            guard let url = URL(string: "https://jaysce.dev/projects/spaceman") else {
-                fatalError("Invalid website URL")
+
+        /// Base URL for Sparkle appcast feeds (stable channel).
+        static let stableFeedURL: URL = {
+            guard let url = URL(string: "https://github.com/yeapea/Spaceman/releases/latest/download/appcast.xml") else {
+                fatalError("Invalid stable feed URL")
+            }
+            return url
+        }()
+
+        /// Beta appcast built from the develop branch.
+        static let betaFeedURL: URL = {
+            guard let url = URL(string: "https://github.com/yeapea/Spaceman/releases/download/beta-latest/appcast.xml") else {
+                fatalError("Invalid beta feed URL")
             }
             return url
         }()

@@ -16,6 +16,7 @@ struct PreferencesView: View {
     @AppStorage("displayStyle") private var selectedStyle: SpacemanStyle = .rectangles
     @AppStorage("spaceNames") private var data = Data()
     @AppStorage("autoRefreshSpaces") private var autoRefreshSpaces = false
+    @AppStorage("betaUpdates") private var betaUpdates = false
     @State private var prefsVM = PreferencesViewModel()
 
     // MARK: - Main Body
@@ -81,21 +82,12 @@ struct PreferencesView: View {
 
             Spacer()
 
-            HStack {
-                Button {
-                    NSWorkspace.shared.open(Constants.AppInfo.repo)
-                } label: {
-                    Text("GitHub").font(.system(size: 12))
-                }
-                .buttonStyle(LinkButtonStyle())
-
-                Button {
-                    NSWorkspace.shared.open(Constants.AppInfo.website)
-                } label: {
-                    Text("Website").font(.system(size: 12))
-                }
-                .buttonStyle(LinkButtonStyle())
+            Button {
+                NSWorkspace.shared.open(Constants.AppInfo.repo)
+            } label: {
+                Text("GitHub").font(.system(size: 12))
             }
+            .buttonStyle(LinkButtonStyle())
         }
         .padding(.horizontal, 18)
     }
@@ -112,6 +104,9 @@ struct PreferencesView: View {
                 LaunchAtLogin.Toggle {Text("Launch Spaceman at login")}
                 Toggle("Refresh spaces in background", isOn: $autoRefreshSpaces)
                 shortcutRecorder.disabled(autoRefreshSpaces)
+                Divider().padding(.vertical, 4)
+                Toggle("Receive beta updates", isOn: $betaUpdates)
+                    .help("When enabled, Spaceman checks the develop branch for pre-release builds.")
             }
             .padding()
             .onChange(of: autoRefreshSpaces) { _, enabled in
