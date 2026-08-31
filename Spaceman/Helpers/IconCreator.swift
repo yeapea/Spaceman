@@ -8,12 +8,11 @@
 import AppKit
 import Foundation
 
-class IconCreator {
+final class IconCreator {
     private let defaults = UserDefaults.standard
     private var iconSize = NSSize(width: 18, height: 12)
     private let gapWidth = CGFloat(5)
     private let displayGapWidth = CGFloat(15)
-    private var displayCount = 1
 
     func getIcon(for spaces: [Space]) -> NSImage {
         iconSize.width = 18
@@ -50,8 +49,8 @@ class IconCreator {
             break
         }
 
-        let iconsWithDisplayProperties = getIconsWithDisplayProps(icons: icons, spaces: spaces)
-        return mergeIcons(iconsWithDisplayProperties)
+        let (iconsWithDisplayProperties, displayCount) = getIconsWithDisplayProps(icons: icons, spaces: spaces)
+        return mergeIcons(iconsWithDisplayProperties, displayCount: displayCount)
     }
 
     private func createNumberedIcons(_ spaces: [Space]) -> [NSImage] {
@@ -60,15 +59,14 @@ class IconCreator {
         for space in spaces {
             let textRect = NSRect(origin: CGPoint.zero, size: iconSize)
             let spaceNumber = NSString(string: String(space.spaceNumber))
-            let image = NSImage(size: iconSize)
-
-            image.lockFocus()
-            spaceNumber.drawVerticallyCentered(
-                in: textRect,
-                withAttributes: getStringAttributes(
-                    alpha: !space.isCurrentSpace ? 0.4 : 1,
-                    fontSize: 12))
-            image.unlockFocus()
+            let attributes = getStringAttributes(
+                alpha: space.isCurrentSpace ? 1 : 0.4,
+                fontSize: 12)
+            let image = NSImage(size: iconSize, flipped: false) { _ in
+                spaceNumber.drawVerticallyCentered(in: textRect, withAttributes: attributes)
+                return true
+            }
+            image.isTemplate = true
 
             newIcons.append(image)
         }
@@ -83,31 +81,31 @@ class IconCreator {
         for space in spaces {
             let textRect = NSRect(origin: CGPoint.zero, size: iconSize)
             let number = desktopsOnly ? space.desktopNumber : space.spaceNumber
-            let iconImage = NSImage(size: iconSize)
-            let numberImage = NSImage(size: iconSize)
-
-            if let number {
-                numberImage.lockFocus()
-                let spaceNumber = NSString(string: String(number))
-                spaceNumber.drawVerticallyCentered(
-                    in: textRect,
-                    withAttributes: getStringAttributes(alpha: 1))
-                numberImage.unlockFocus()
+            let numberImage = NSImage(size: iconSize, flipped: false) { _ in
+                if let number {
+                    let spaceNumber = NSString(string: String(number))
+                    spaceNumber.drawVerticallyCentered(
+                        in: textRect,
+                        withAttributes: self.getStringAttributes(alpha: 1))
+                }
+                return true
             }
 
-            iconImage.lockFocus()
-            icons[index].draw(
-                in: textRect,
-                from: NSRect.zero,
-                operation: NSCompositingOperation.sourceOver,
-                fraction: 1.0)
-            numberImage.draw(
-                in: textRect,
-                from: NSRect.zero,
-                operation: NSCompositingOperation.destinationOut,
-                fraction: 1.0)
+            let baseIcon = icons[index]
+            let iconImage = NSImage(size: iconSize, flipped: false) { _ in
+                baseIcon.draw(
+                    in: textRect,
+                    from: NSRect.zero,
+                    operation: NSCompositingOperation.sourceOver,
+                    fraction: 1.0)
+                numberImage.draw(
+                    in: textRect,
+                    from: NSRect.zero,
+                    operation: NSCompositingOperation.destinationOut,
+                    fraction: 1.0)
+                return true
+            }
             iconImage.isTemplate = true
-            iconImage.unlockFocus()
 
             newIcons.append(iconImage)
             index += 1
@@ -123,28 +121,28 @@ class IconCreator {
         for space in spaces {
             let textRect = NSRect(origin: CGPoint.zero, size: iconSize)
             let spaceText = NSString(string: "\(space.spaceNumber): \(space.spaceName.uppercased())")
-            let iconImage = NSImage(size: iconSize)
-            let textImage = NSImage(size: iconSize)
+            let textImage = NSImage(size: iconSize, flipped: false) { _ in
+                spaceText.drawVerticallyCentered(
+                    in: textRect,
+                    withAttributes: self.getStringAttributes(alpha: 1))
+                return true
+            }
 
-            textImage.lockFocus()
-            spaceText.drawVerticallyCentered(
-                in: textRect,
-                withAttributes: getStringAttributes(alpha: 1))
-            textImage.unlockFocus()
-
-            iconImage.lockFocus()
-            icons[index].draw(
-                in: textRect,
-                from: NSRect.zero,
-                operation: NSCompositingOperation.sourceOver,
-                fraction: 1.0)
-            textImage.draw(
-                in: textRect,
-                from: NSRect.zero,
-                operation: NSCompositingOperation.destinationOut,
-                fraction: 1.0)
+            let baseIcon = icons[index]
+            let iconImage = NSImage(size: iconSize, flipped: false) { _ in
+                baseIcon.draw(
+                    in: textRect,
+                    from: NSRect.zero,
+                    operation: NSCompositingOperation.sourceOver,
+                    fraction: 1.0)
+                textImage.draw(
+                    in: textRect,
+                    from: NSRect.zero,
+                    operation: NSCompositingOperation.destinationOut,
+                    fraction: 1.0)
+                return true
+            }
             iconImage.isTemplate = true
-            iconImage.unlockFocus()
 
             newIcons.append(iconImage)
             index += 1
@@ -153,10 +151,10 @@ class IconCreator {
         return newIcons
     }
 
-    func getIconsWithDisplayProps(icons: [NSImage], spaces: [Space]) -> [(NSImage, Bool)] {
+    func getIconsWithDisplayProps(icons: [NSImage], spaces: [Space]) -> (icons: [(NSImage, Bool)], displayCount: Int) {
         var iconsWithDisplayProperties = [(NSImage, Bool)]()
         var currentDisplayID = spaces[0].displayID
-        displayCount = 1
+        var displayCount = 1
 
         for index in 0 ..< spaces.count {
             var nextSpaceIsOnDifferentDisplay = false
@@ -173,33 +171,42 @@ class IconCreator {
             iconsWithDisplayProperties.append((icons[index], nextSpaceIsOnDifferentDisplay))
         }
 
-        return iconsWithDisplayProperties
+        return (iconsWithDisplayProperties, displayCount)
     }
 
-    func mergeIcons(_ iconsWithDisplayProperties: [(image: NSImage, nextSpaceOnDifferentDisplay: Bool)]) -> NSImage {
+    func mergeIcons(
+        _ iconsWithDisplayProperties: [(image: NSImage, nextSpaceOnDifferentDisplay: Bool)],
+        displayCount: Int
+    ) -> NSImage {
         let numIcons = iconsWithDisplayProperties.count
         let combinedIconWidth = CGFloat(numIcons) * iconSize.width
         let accomodatingGapWidth = CGFloat(numIcons - 1) * gapWidth
         let accomodatingDisplayGapWidth = CGFloat(displayCount - 1) * displayGapWidth
         let totalWidth = combinedIconWidth + accomodatingGapWidth + accomodatingDisplayGapWidth
-        let image = NSImage(size: NSSize(width: totalWidth, height: iconSize.height))
-
-        image.lockFocus()
-        var xOffset = CGFloat.zero
-        for icon in iconsWithDisplayProperties {
-            icon.image.draw(
-                at: NSPoint(x: xOffset, y: 0),
-                from: NSRect.zero,
-                operation: NSCompositingOperation.sourceOver,
-                fraction: 1.0)
-            if icon.nextSpaceOnDifferentDisplay {
-                xOffset += iconSize.width + displayGapWidth
-            } else {
-                xOffset += iconSize.width + gapWidth
+        let iconHeight = iconSize.height
+        let iconWidth = iconSize.width
+        let gapWidth = self.gapWidth
+        let displayGapWidth = self.displayGapWidth
+        let image = NSImage(
+            size: NSSize(width: totalWidth, height: iconHeight),
+            flipped: false
+        ) { _ in
+            var xOffset = CGFloat.zero
+            for icon in iconsWithDisplayProperties {
+                icon.image.draw(
+                    at: NSPoint(x: xOffset, y: 0),
+                    from: NSRect.zero,
+                    operation: NSCompositingOperation.sourceOver,
+                    fraction: 1.0)
+                if icon.nextSpaceOnDifferentDisplay {
+                    xOffset += iconWidth + displayGapWidth
+                } else {
+                    xOffset += iconWidth + gapWidth
+                }
             }
+            return true
         }
         image.isTemplate = true
-        image.unlockFocus()
 
         return image
     }

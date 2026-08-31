@@ -10,8 +10,11 @@
 
 #import <Foundation/Foundation.h>
 
-int _CGSDefaultConnection();
+// Private CoreGraphics SPI. Undocumented, not App-Store-safe, and subject
+// to break across macOS releases. Only declare the symbols we actually
+// consume so the private-API surface is minimal and auditable.
+
+int _CGSDefaultConnection(void);
 id CGSCopyManagedDisplaySpaces(int conn);
-id CGSCopyActiveMenuBarDisplayIdentifier(int conn);
 
 #endif /* Spaceman_Bridging_Header_h */

@@ -4,10 +4,20 @@ on:
   push:
     branches:
       - main
+      - develop
+  pull_request:
+    branches:
+      - main
+      - develop
+  workflow_dispatch:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   lint:
-    name: Lint
+    name: SwiftLint
     runs-on: macos-15
 
     steps:
@@ -21,4 +31,83 @@ jobs:
           fi
 
       - name: Run SwiftLint
-        run: swiftlint lint Spaceman --config .swiftlint.yml --reporter github-actions-logging --strict --no-cache
+        run: swiftlint lint --config .swiftlint.yml --reporter github-actions-logging --strict --no-cache
+
+  format:
+    # Advisory until .swift-format rules are calibrated against the
+    # existing codebase. Kept visible in CI so drift is surfaced, but
+    # not a gate on merges yet.
+    name: swift-format (advisory)
+    runs-on: macos-15
+    continue-on-error: true
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Run swift-format lint
+        run: |
+          swift-format lint \
+            --configuration .swift-format \
+            --recursive \
+            --strict \
+            Spaceman SpacemanTests
+
+  build-test:
+    name: Build and Test
+    runs-on: macos-15
+    needs: [lint]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install xcbeautify
+        run: |
+          if ! command -v xcbeautify >/dev/null 2>&1; then
+            brew install xcbeautify
+          fi
+
+      - name: Show Xcode version
+        run: |
+          xcode-select -p
+          xcodebuild -version
+
+      - name: Resolve Swift packages
+        run: |
+          xcodebuild \
+            -project Spaceman.xcodeproj \
+            -scheme Spaceman \
+            -resolvePackageDependencies
+
+      - name: Build
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project Spaceman.xcodeproj \
+            -scheme Spaceman \
+            -configuration Debug \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            build \
+            | xcbeautify --renderer github-actions || exit $?
+
+      - name: Test
+        run: |
+          set -o pipefail
+          if xcodebuild \
+              -project Spaceman.xcodeproj \
+              -list 2>/dev/null | grep -q "SpacemanTests"; then
+            xcodebuild \
+              -project Spaceman.xcodeproj \
+              -scheme Spaceman \
+              -configuration Debug \
+              -destination 'platform=macOS' \
+              CODE_SIGNING_ALLOWED=NO \
+              CODE_SIGNING_REQUIRED=NO \
+              test \
+              | xcbeautify --renderer github-actions || exit $?
+          else
+            echo "::notice::No SpacemanTests scheme yet — skipping test run."
+          fi

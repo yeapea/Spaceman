@@ -71,7 +71,7 @@ final class StatusBar: NSObject, SPUStandardUserDriverDelegate {
     @objc func showPreferencesWindow(_ sender: AnyObject) {
         prefsWindow.center()
         prefsWindow.makeKeyAndOrderFront(nil)
-        NSApplication.shared.activate(ignoringOtherApps: true)
+        NSApp.activate()
     }
 
     var supportsGentleScheduledUpdateReminders: Bool {

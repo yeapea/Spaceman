@@ -6,20 +6,26 @@
 //
 
 import Foundation
-import SwiftUI
+import Observation
 
-class PreferencesViewModel: ObservableObject {
-    @AppStorage("autoRefreshSpaces") private var autoRefreshSpaces = false
-    @Published var selectedSpace = 0
-    @Published var spaceName = ""
+@MainActor
+@Observable
+final class PreferencesViewModel {
+    var selectedSpace = 0
+    var spaceName = ""
     var spaceNamesDict: [String: SpaceNameInfo] = [:]
     var sortedSpaceNamesDict: [Dictionary<String, SpaceNameInfo>.Element] = []
-    var timer: Timer?
+
+    @ObservationIgnored private var timer: Timer?
 
     init() {
-        if autoRefreshSpaces {
+        if UserDefaults.standard.bool(forKey: "autoRefreshSpaces") {
             startTimer()
         }
+    }
+
+    deinit {
+        timer?.invalidate()
     }
 
     func loadData() {
@@ -29,12 +35,13 @@ class PreferencesViewModel: ObservableObject {
 
         self.selectedSpace = 0
         guard let decoded = try? PropertyListDecoder().decode([String: SpaceNameInfo].self, from: data) else {
+            Log.preferences.error("Failed to decode spaceNames; keeping previous state")
             return
         }
         self.spaceNamesDict = decoded
 
-        let sorted = spaceNamesDict.sorted { (first, second) -> Bool in
-            return first.value.spaceNum < second.value.spaceNum
+        let sorted = spaceNamesDict.sorted { first, second in
+            first.value.spaceNum < second.value.spaceNum
         }
 
         sortedSpaceNamesDict = sorted
@@ -47,21 +54,21 @@ class PreferencesViewModel: ObservableObject {
     }
 
     func startTimer() {
-        timer = Timer.scheduledTimer(
-            timeInterval: 5,
-            target: self,
-            selector: #selector(refreshSpaces),
-            userInfo: nil,
-            repeats: true
-        )
+        timer?.invalidate()
+        timer = Timer.scheduledTimer(withTimeInterval: 5, repeats: true) { [weak self] _ in
+            Task { @MainActor in
+                self?.refreshSpaces()
+            }
+        }
     }
 
     func pauseTimer() {
         timer?.invalidate()
+        timer = nil
     }
 
-    @objc func refreshSpaces() {
-        print("Updating spaces")
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ButtonPressed"), object: nil)
+    private func refreshSpaces() {
+        Log.preferences.debug("Periodic refresh tick")
+        NotificationCenter.default.post(name: .spacemanRefresh, object: nil)
     }
 }

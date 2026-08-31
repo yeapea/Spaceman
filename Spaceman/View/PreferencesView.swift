@@ -16,7 +16,7 @@ struct PreferencesView: View {
     @AppStorage("displayStyle") private var selectedStyle = 0
     @AppStorage("spaceNames") private var data = Data()
     @AppStorage("autoRefreshSpaces") private var autoRefreshSpaces = false
-    @StateObject private var prefsVM = PreferencesViewModel()
+    @State private var prefsVM = PreferencesViewModel()
 
     // MARK: - Main Body
     var body: some View {
@@ -36,7 +36,7 @@ struct PreferencesView: View {
         }
         .ignoresSafeArea()
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
-        .onAppear(perform: prefsVM.loadData)
+        .onAppear { prefsVM.loadData() }
         .onChange(of: data) {
             prefsVM.loadData()
         }
@@ -110,7 +110,7 @@ struct PreferencesView: View {
                     .fontWeight(.semibold)
                 LaunchAtLogin.Toggle {Text("Launch Spaceman at login")}
                 Toggle("Refresh spaces in background", isOn: $autoRefreshSpaces)
-                shortcutRecorder.disabled(autoRefreshSpaces ? true : false)
+                shortcutRecorder.disabled(autoRefreshSpaces)
             }
             .padding()
             .onChange(of: autoRefreshSpaces) { _, enabled in
@@ -130,9 +130,8 @@ struct PreferencesView: View {
                 Text("Spaces")
                     .font(.title2)
                     .fontWeight(.semibold)
-//                Toggle("Use single icon indicator", isOn: .constant(false)) // TODO: Implement this
                 spacesStylePicker
-                spaceNameEditor.disabled(selectedStyle != SpacemanStyle.text.rawValue ? true : false)
+                spaceNameEditor.disabled(selectedStyle != SpacemanStyle.text.rawValue)
             }
             .padding()
 
@@ -158,13 +157,14 @@ struct PreferencesView: View {
             Text("Named spaces").tag(SpacemanStyle.text.rawValue)
         }
         .onChange(of: selectedStyle) {
-            NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ButtonPressed"), object: nil)
+            NotificationCenter.default.post(name: .spacemanRefresh, object: nil)
         }
     }
 
     // MARK: - Space Name Editor
     private var spaceNameEditor: some View {
-        HStack {
+        @Bindable var prefsVM = prefsVM
+        return HStack {
             Picker(selection: $prefsVM.selectedSpace, label: Text("Space")) {
                 ForEach(0..<prefsVM.sortedSpaceNamesDict.count, id: \.self) {
                     Text(String(prefsVM.sortedSpaceNamesDict[$0].value.spaceNum))
@@ -189,12 +189,10 @@ struct PreferencesView: View {
         if let encoded = try? PropertyListEncoder().encode(prefsVM.spaceNamesDict) {
             self.data = encoded
         }
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "ButtonPressed"), object: nil)
+        NotificationCenter.default.post(name: .spacemanRefresh, object: nil)
     }
 }
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        PreferencesView()
-    }
+#Preview {
+    PreferencesView()
 }
