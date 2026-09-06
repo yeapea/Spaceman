@@ -21,6 +21,22 @@ on:
         default: true
         type: boolean
 
+concurrency:
+  # ⚠️ SERIALIZE, NEVER CANCEL -- this is a release. The run is started by a `v*` tag push or by
+  # hand, and both are deliberate acts somebody is waiting on the result of. A cancelled release
+  # run leaves a check that reported nothing, and a cancelled check reads as noise rather than
+  # as a failure, so the release ends up measured by an absence.
+  #
+  # The fleet's usual form is `cancel-in-progress: ${{ github.event_name == 'pull_request' }}`,
+  # and it is right wherever a pull request can start the workflow. It cannot here: `on:` carries
+  # a tag push and `workflow_dispatch` only, so that expression would be false on every run this
+  # file can have -- a line that reads as a live decision and is a constant. Written as the
+  # constant it would be, which is what this repository's siblings do in the same situation.
+  #
+  # The group still earns its place: two releases must not run against one ref at once.
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: false
+
 permissions:
   contents: write
 
