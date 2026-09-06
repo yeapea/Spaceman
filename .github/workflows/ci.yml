@@ -13,7 +13,16 @@ on:
 
 concurrency:
   group: ci-${{ github.ref }}
-  cancel-in-progress: true
+  # ⚠️ THE CONDITION IS THE LOAD-BEARING HALF. This workflow also fires on a push to `main` and
+  # `develop`, and THAT run is the one a merge is read against. An unconditional cancel throws it
+  # away when a second push lands behind it, leaving a check that reported NOTHING -- and a
+  # cancelled check reads as noise rather than as a failure.
+  #
+  # Outside a pull request the group then only SERIALIZES: two runs stay off one ref, for free.
+  # The cancel stays where it pays -- a pull request whose later push has overtaken the run in
+  # flight, which is where GitHub's per-job minute rounding actually bills for an answer about a
+  # tree that no longer exists.
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
 
 jobs:
   lint:
