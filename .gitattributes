@@ -1,0 +1,6 @@
+# Process-only paths never reach a published archive. This repository does not publish
+# one today - it is a macOS app, not a package - but `git archive` is one command away
+# and the agent working directory has no business in a tarball somebody downloads.
+internal/ export-ignore
+.claude/ export-ignore
+/CLAUDE.md export-ignore
