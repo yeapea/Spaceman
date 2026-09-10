@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AboutView: View {
-
     var body: some View {
         HStack {
             Link(destination: Constants.AppInfo.repo) {

@@ -13,9 +13,10 @@ struct PreferencesView: View {
 
     weak var parentWindow: PreferencesWindow?
 
-    @AppStorage("displayStyle") private var selectedStyle = 0
+    @AppStorage("displayStyle") private var selectedStyle: SpacemanStyle = .rectangles
     @AppStorage("spaceNames") private var data = Data()
     @AppStorage("autoRefreshSpaces") private var autoRefreshSpaces = false
+    @AppStorage("betaUpdates") private var betaUpdates = false
     @State private var prefsVM = PreferencesViewModel()
 
     // MARK: - Main Body
@@ -55,6 +56,7 @@ struct PreferencesView: View {
                 }
                 .buttonStyle(BorderlessButtonStyle())
                 .padding(.leading, 12)
+                .accessibilityLabel("Close preferences")
                 Spacer()
             }
             Spacer()
@@ -80,21 +82,12 @@ struct PreferencesView: View {
 
             Spacer()
 
-            HStack {
-                Button {
-                    NSWorkspace.shared.open(Constants.AppInfo.repo)
-                } label: {
-                    Text("GitHub").font(.system(size: 12))
-                }
-                .buttonStyle(LinkButtonStyle())
-
-                Button {
-                    NSWorkspace.shared.open(Constants.AppInfo.website)
-                } label: {
-                    Text("Website").font(.system(size: 12))
-                }
-                .buttonStyle(LinkButtonStyle())
+            Button {
+                NSWorkspace.shared.open(Constants.AppInfo.repo)
+            } label: {
+                Text("GitHub").font(.system(size: 12))
             }
+            .buttonStyle(LinkButtonStyle())
         }
         .padding(.horizontal, 18)
     }
@@ -111,6 +104,9 @@ struct PreferencesView: View {
                 LaunchAtLogin.Toggle {Text("Launch Spaceman at login")}
                 Toggle("Refresh spaces in background", isOn: $autoRefreshSpaces)
                 shortcutRecorder.disabled(autoRefreshSpaces)
+                Divider().padding(.vertical, 4)
+                Toggle("Receive beta updates", isOn: $betaUpdates)
+                    .help("When enabled, Spaceman checks the develop branch for pre-release builds.")
             }
             .padding()
             .onChange(of: autoRefreshSpaces) { _, enabled in
@@ -131,7 +127,7 @@ struct PreferencesView: View {
                     .font(.title2)
                     .fontWeight(.semibold)
                 spacesStylePicker
-                spaceNameEditor.disabled(selectedStyle != SpacemanStyle.text.rawValue)
+                spaceNameEditor.disabled(selectedStyle != .text)
             }
             .padding()
 
@@ -150,11 +146,11 @@ struct PreferencesView: View {
     // MARK: - Style Picker
     private var spacesStylePicker: some View {
         Picker(selection: $selectedStyle, label: Text("Style")) {
-            Text("Rectangles").tag(SpacemanStyle.none.rawValue)
-            Text("Numbers").tag(SpacemanStyle.numbers.rawValue)
-            Text("Rectangles with numbers").tag(SpacemanStyle.numbersAndRects.rawValue)
-            Text("Rectangles with desktop numbers").tag(SpacemanStyle.desktopNumbersAndRects.rawValue)
-            Text("Named spaces").tag(SpacemanStyle.text.rawValue)
+            Text("Rectangles").tag(SpacemanStyle.rectangles)
+            Text("Numbers").tag(SpacemanStyle.numbers)
+            Text("Rectangles with numbers").tag(SpacemanStyle.numbersAndRects)
+            Text("Rectangles with desktop numbers").tag(SpacemanStyle.desktopNumbersAndRects)
+            Text("Named spaces").tag(SpacemanStyle.text)
         }
         .onChange(of: selectedStyle) {
             NotificationCenter.default.post(name: .spacemanRefresh, object: nil)
@@ -166,15 +162,20 @@ struct PreferencesView: View {
         @Bindable var prefsVM = prefsVM
         return HStack {
             Picker(selection: $prefsVM.selectedSpace, label: Text("Space")) {
-                ForEach(0..<prefsVM.sortedSpaceNamesDict.count, id: \.self) {
-                    Text(String(prefsVM.sortedSpaceNamesDict[$0].value.spaceNum))
+                ForEach(0..<prefsVM.sortedSpaceNamesDict.count, id: \.self) { index in
+                    let info = prefsVM.sortedSpaceNamesDict[index].value
+                    Text("\(info.spaceNum) — \(info.spaceName)")
                 }
             }
             TextField(
-                "Name (max 3 char.)",
+                "Name (max \(Constants.Layout.maxSpaceNameLength) char.)",
                 text: Binding(
-                    get: {prefsVM.spaceName},
-                    set: {prefsVM.spaceName = $0.prefix(3).trimmingCharacters(in: .whitespacesAndNewlines)}),
+                    get: { prefsVM.spaceName },
+                    set: {
+                        prefsVM.spaceName = $0
+                            .prefix(Constants.Layout.maxSpaceNameLength)
+                            .trimmingCharacters(in: .whitespacesAndNewlines)
+                    }),
                 onCommit: updateName)
 
             Button("Update name") {

@@ -28,6 +28,7 @@ enum SpaceParser {
     struct ParseResult {
         let spaces: [Space]
         let updatedNames: [String: SpaceNameInfo]
+        let nextIndex: Int
     }
 
     /// Parses a single display dictionary returned by
@@ -53,11 +54,11 @@ enum SpaceParser {
         for display: DisplayInfo,
         savedSpaceNames: [String: SpaceNameInfo],
         startIndex: Int
-    ) -> (spaces: [Space], updatedNames: [String: SpaceNameInfo], nextIndex: Int) {
+    ) -> ParseResult {
         var spacesIndex = startIndex
         var lastDesktopNumber = 0
-        var spaces = [Space]()
-        var updatedNames = [String: SpaceNameInfo]()
+        var spaces: [Space] = []
+        var updatedNames: [String: SpaceNameInfo] = [:]
 
         for spaceInfo in display.spaces {
             guard let managedSpaceID = spaceInfo["ManagedSpaceID"] as? Int else {
@@ -92,7 +93,7 @@ enum SpaceParser {
             spacesIndex += 1
         }
 
-        return (spaces, updatedNames, spacesIndex)
+        return ParseResult(spaces: spaces, updatedNames: updatedNames, nextIndex: spacesIndex)
     }
 
     private static func defaultSpaceName(for spaceInfo: [String: Any], isFullScreen: Bool) -> String {

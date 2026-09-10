@@ -7,6 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AA01000000000000000001F1 /* SpacemanStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F1 /* SpacemanStyleTests.swift */; };
+		AA01000000000000000001F2 /* SpaceNameInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F2 /* SpaceNameInfoTests.swift */; };
+		AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F3 /* SpaceModelTests.swift */; };
+		AA01000000000000000001F4 /* SpaceParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F4 /* SpaceParserTests.swift */; };
+		B00100000000000000000B01 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A01 /* Log.swift */; };
+		B00100000000000000000B02 /* NotificationName+Spaceman.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A02 /* NotificationName+Spaceman.swift */; };
+		B00100000000000000000B03 /* SpaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A03 /* SpaceParser.swift */; };
 		E828E6552737CBA0007075E8 /* VisualEffectView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E828E6542737CBA0007075E8 /* VisualEffectView.swift */; };
 		E828E6582737D2E4007075E8 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = E828E6572737D2E4007075E8 /* Constants.swift */; };
 		E87334E9256B51CF0012586E /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = E87334E8256B51CF0012586E /* AppDelegate.swift */; };
@@ -27,13 +34,6 @@
 		E8E8D41C2585A80B00671AE9 /* KeyboardShortcuts in Frameworks */ = {isa = PBXBuildFile; productRef = E8E8D41B2585A80B00671AE9 /* KeyboardShortcuts */; };
 		E8EBF08C2575F8E4001BA74F /* LaunchAtLogin in Frameworks */ = {isa = PBXBuildFile; productRef = E8EBF08B2575F8E4001BA74F /* LaunchAtLogin */; };
 		E8EBF091257739ED001BA74F /* PreferencesWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8EBF090257739ED001BA74F /* PreferencesWindow.swift */; };
-		AA01000000000000000001F1 /* SpacemanStyleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F1 /* SpacemanStyleTests.swift */; };
-		AA01000000000000000001F2 /* SpaceNameInfoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F2 /* SpaceNameInfoTests.swift */; };
-		AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F3 /* SpaceModelTests.swift */; };
-		B00100000000000000000B01 /* Log.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A01 /* Log.swift */; };
-		B00100000000000000000B02 /* NotificationName+Spaceman.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A02 /* NotificationName+Spaceman.swift */; };
-		B00100000000000000000B03 /* SpaceParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = B00100000000000000000A03 /* SpaceParser.swift */; };
-		AA01000000000000000001F4 /* SpaceParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA01000000000000000000F4 /* SpaceParserTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -47,6 +47,14 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AA01000000000000000000E3 /* SpacemanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpacemanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		AA01000000000000000000F1 /* SpacemanStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacemanStyleTests.swift; sourceTree = "<group>"; };
+		AA01000000000000000000F2 /* SpaceNameInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceNameInfoTests.swift; sourceTree = "<group>"; };
+		AA01000000000000000000F3 /* SpaceModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceModelTests.swift; sourceTree = "<group>"; };
+		AA01000000000000000000F4 /* SpaceParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParserTests.swift; sourceTree = "<group>"; };
+		B00100000000000000000A01 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
+		B00100000000000000000A02 /* NotificationName+Spaceman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Spaceman.swift"; sourceTree = "<group>"; };
+		B00100000000000000000A03 /* SpaceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParser.swift; sourceTree = "<group>"; };
 		E828E6542737CBA0007075E8 /* VisualEffectView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualEffectView.swift; sourceTree = "<group>"; };
 		E828E6572737D2E4007075E8 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		E87334E5256B51CF0012586E /* Spaceman.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Spaceman.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -68,17 +76,16 @@
 		E8E2AEFE257CB5AF00319BBC /* SpacemanStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacemanStyle.swift; sourceTree = "<group>"; };
 		E8E2AF02257CB5CE00319BBC /* SpaceNameInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceNameInfo.swift; sourceTree = "<group>"; };
 		E8EBF090257739ED001BA74F /* PreferencesWindow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesWindow.swift; sourceTree = "<group>"; };
-		AA01000000000000000000E3 /* SpacemanTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SpacemanTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		AA01000000000000000000F1 /* SpacemanStyleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpacemanStyleTests.swift; sourceTree = "<group>"; };
-		AA01000000000000000000F2 /* SpaceNameInfoTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceNameInfoTests.swift; sourceTree = "<group>"; };
-		AA01000000000000000000F3 /* SpaceModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceModelTests.swift; sourceTree = "<group>"; };
-		B00100000000000000000A01 /* Log.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Log.swift; sourceTree = "<group>"; };
-		B00100000000000000000A02 /* NotificationName+Spaceman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NotificationName+Spaceman.swift"; sourceTree = "<group>"; };
-		B00100000000000000000A03 /* SpaceParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParser.swift; sourceTree = "<group>"; };
-		AA01000000000000000000F4 /* SpaceParserTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpaceParserTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		AA01000000000000000000E5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E87334E2256B51CF0012586E /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -89,16 +96,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		AA01000000000000000000E5 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		AA01000000000000000000E2 /* SpacemanTests */ = {
+			isa = PBXGroup;
+			children = (
+				AA01000000000000000000F1 /* SpacemanStyleTests.swift */,
+				AA01000000000000000000F2 /* SpaceNameInfoTests.swift */,
+				AA01000000000000000000F3 /* SpaceModelTests.swift */,
+				AA01000000000000000000F4 /* SpaceParserTests.swift */,
+			);
+			path = SpacemanTests;
+			sourceTree = "<group>";
+		};
 		E828E6562737D2CF007075E8 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
@@ -125,17 +136,6 @@
 				AA01000000000000000000E3 /* SpacemanTests.xctest */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		AA01000000000000000000E2 /* SpacemanTests */ = {
-			isa = PBXGroup;
-			children = (
-				AA01000000000000000000F1 /* SpacemanStyleTests.swift */,
-				AA01000000000000000000F2 /* SpaceNameInfoTests.swift */,
-				AA01000000000000000000F3 /* SpaceModelTests.swift */,
-				AA01000000000000000000F4 /* SpaceParserTests.swift */,
-			);
-			path = SpacemanTests;
 			sourceTree = "<group>";
 		};
 		E87334E7256B51CF0012586E /* Spaceman */ = {
@@ -209,6 +209,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		AA01000000000000000000E1 /* SpacemanTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = AA01000000000000000000E9 /* Build configuration list for PBXNativeTarget "SpacemanTests" */;
+			buildPhases = (
+				AA01000000000000000000E4 /* Sources */,
+				AA01000000000000000000E5 /* Frameworks */,
+				AA01000000000000000000E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				AA01000000000000000000E7 /* PBXTargetDependency */,
+			);
+			name = SpacemanTests;
+			productName = SpacemanTests;
+			productReference = AA01000000000000000000E3 /* SpacemanTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 		E87334E4256B51CF0012586E /* Spaceman */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = E87334F8256B51CF0012586E /* Build configuration list for PBXNativeTarget "Spaceman" */;
@@ -232,24 +250,6 @@
 			productReference = E87334E5256B51CF0012586E /* Spaceman.app */;
 			productType = "com.apple.product-type.application";
 		};
-		AA01000000000000000000E1 /* SpacemanTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = AA01000000000000000000E9 /* Build configuration list for PBXNativeTarget "SpacemanTests" */;
-			buildPhases = (
-				AA01000000000000000000E4 /* Sources */,
-				AA01000000000000000000E5 /* Frameworks */,
-				AA01000000000000000000E6 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				AA01000000000000000000E7 /* PBXTargetDependency */,
-			);
-			name = SpacemanTests;
-			productName = SpacemanTests;
-			productReference = AA01000000000000000000E3 /* SpacemanTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -258,14 +258,14 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1220;
-				LastUpgradeCheck = 2620;
+				LastUpgradeCheck = 2640;
 				TargetAttributes = {
-					E87334E4256B51CF0012586E = {
-						CreatedOnToolsVersion = 12.2;
-					};
 					AA01000000000000000000E1 = {
 						CreatedOnToolsVersion = 16.0;
 						TestTargetID = E87334E4256B51CF0012586E;
+					};
+					E87334E4256B51CF0012586E = {
+						CreatedOnToolsVersion = 12.2;
 					};
 				};
 			};
@@ -279,7 +279,7 @@
 			);
 			mainGroup = E87334DC256B51CF0012586E;
 			packageReferences = (
-				E8EBF08A2575F8E4001BA74F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */,
+				E8EBF08A2575F8E4001BA74F /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */,
 				E8E8D41A2585A80B00671AE9 /* XCRemoteSwiftPackageReference "KeyboardShortcuts" */,
 				E8CA0CB62775F35B004A3C75 /* XCRemoteSwiftPackageReference "Sparkle" */,
 			);
@@ -294,6 +294,13 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		AA01000000000000000000E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E87334E3256B51CF0012586E /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -301,13 +308,6 @@
 				E87334F3256B51CF0012586E /* Main.storyboard in Resources */,
 				E87334F0256B51CF0012586E /* Preview Assets.xcassets in Resources */,
 				E87334ED256B51CF0012586E /* Assets.xcassets in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AA01000000000000000000E6 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -333,11 +333,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-				shellScript = "PATH=\"/opt/homebrew/bin:/usr/local/bin:${PATH}\"\nSWIFTLINT=\"$(command -v swiftlint || true)\"\nif [ -z \"${SWIFTLINT}\" ]; then\n  echo \"warning: SwiftLint is not installed. Install it from https://github.com/realm/SwiftLint\"\n  exit 0\nfi\n\"${SWIFTLINT}\" lint \"${SRCROOT}/Spaceman\" --config \"${SRCROOT}/.swiftlint.yml\" --reporter xcode --lenient --no-cache\n";
-			};
+			shellScript = "PATH=\"/opt/homebrew/bin:/usr/local/bin:${PATH}\"\nSWIFTLINT=\"$(command -v swiftlint || true)\"\nif [ -z \"${SWIFTLINT}\" ]; then\n  echo \"warning: SwiftLint is not installed. Install it from https://github.com/realm/SwiftLint\"\n  exit 0\nfi\n\"${SWIFTLINT}\" lint \"${SRCROOT}/Spaceman\" --config \"${SRCROOT}/.swiftlint.yml\" --reporter xcode --lenient --no-cache\n";
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		AA01000000000000000000E4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA01000000000000000001F1 /* SpacemanStyleTests.swift in Sources */,
+				AA01000000000000000001F2 /* SpaceNameInfoTests.swift in Sources */,
+				AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */,
+				AA01000000000000000001F4 /* SpaceParserTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E87334E1256B51CF0012586E /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -359,17 +370,6 @@
 				E8733517256C6F3A0012586E /* Extensions.swift in Sources */,
 				B00100000000000000000B01 /* Log.swift in Sources */,
 				B00100000000000000000B02 /* NotificationName+Spaceman.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		AA01000000000000000000E4 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				AA01000000000000000001F1 /* SpacemanStyleTests.swift in Sources */,
-				AA01000000000000000001F2 /* SpaceNameInfoTests.swift in Sources */,
-				AA01000000000000000001F3 /* SpaceModelTests.swift in Sources */,
-				AA01000000000000000001F4 /* SpaceParserTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,10 +395,55 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		AA01000000000000000000EA /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P2Q7LG69J2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.jaysce.SpacemanTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.10;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spaceman.app/Contents/MacOS/Spaceman";
+			};
+			name = Debug;
+		};
+		AA01000000000000000000EB /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = P2Q7LG69J2;
+				GENERATE_INFOPLIST_FILE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 15.0;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = dev.jaysce.SpacemanTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.10;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spaceman.app/Contents/MacOS/Spaceman";
+			};
+			name = Release;
+		};
 		E87334F6256B51CF0012586E /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -464,6 +509,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
@@ -527,13 +573,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-					CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 2.0.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Spaceman/Preview Content\"";
+				DEVELOPMENT_TEAM = AWFQ77FVQJ;
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Spaceman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -541,10 +587,11 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-					MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.jaysce.Spaceman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Spaceman/Spaceman-Bridging-Header.h";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.10;
 			};
 			name = Debug;
@@ -558,13 +605,12 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
-					CURRENT_PROJECT_VERSION = 1.0.0;
+				CURRENT_PROJECT_VERSION = 2.0.0;
 				DEAD_CODE_STRIPPING = YES;
 				DEVELOPMENT_ASSET_PATHS = "\"Spaceman/Preview Content\"";
 				ENABLE_APP_SANDBOX = YES;
 				ENABLE_HARDENED_RUNTIME = YES;
 				ENABLE_PREVIEWS = YES;
-				ENABLE_USER_SELECTED_FILES = readonly;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = Spaceman/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -572,61 +618,27 @@
 					"@executable_path/../Frameworks",
 				);
 				MACOSX_DEPLOYMENT_TARGET = 15.0;
-					MARKETING_VERSION = 1.0.0;
+				MARKETING_VERSION = 2.0.0;
 				PRODUCT_BUNDLE_IDENTIFIER = dev.jaysce.Spaceman;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "Spaceman/Spaceman-Bridging-Header.h";
+				SWIFT_STRICT_CONCURRENCY = minimal;
 				SWIFT_VERSION = 5.10;
-			};
-			name = Release;
-		};
-		AA01000000000000000000EA /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P2Q7LG69J2;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.jaysce.SpacemanTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.10;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spaceman.app/Contents/MacOS/Spaceman";
-			};
-			name = Debug;
-		};
-		AA01000000000000000000EB /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				ALWAYS_SEARCH_USER_PATHS = NO;
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CLANG_ANALYZER_NONNULL = YES;
-				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = P2Q7LG69J2;
-				GENERATE_INFOPLIST_FILE = YES;
-				MACOSX_DEPLOYMENT_TARGET = 15.0;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = dev.jaysce.SpacemanTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SDKROOT = macosx;
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.10;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Spaceman.app/Contents/MacOS/Spaceman";
 			};
 			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		AA01000000000000000000E9 /* Build configuration list for PBXNativeTarget "SpacemanTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				AA01000000000000000000EA /* Debug */,
+				AA01000000000000000000EB /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		E87334E0256B51CF0012586E /* Build configuration list for PBXProject "Spaceman" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -641,15 +653,6 @@
 			buildConfigurations = (
 				E87334F9256B51CF0012586E /* Debug */,
 				E87334FA256B51CF0012586E /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		AA01000000000000000000E9 /* Build configuration list for PBXNativeTarget "SpacemanTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				AA01000000000000000000EA /* Debug */,
-				AA01000000000000000000EB /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -673,7 +676,7 @@
 				minimumVersion = 2.4.0;
 			};
 		};
-		E8EBF08A2575F8E4001BA74F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */ = {
+		E8EBF08A2575F8E4001BA74F /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/sindresorhus/LaunchAtLogin-Modern";
 			requirement = {
@@ -696,7 +699,7 @@
 		};
 		E8EBF08B2575F8E4001BA74F /* LaunchAtLogin */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = E8EBF08A2575F8E4001BA74F /* XCRemoteSwiftPackageReference "LaunchAtLogin" */;
+			package = E8EBF08A2575F8E4001BA74F /* XCRemoteSwiftPackageReference "LaunchAtLogin-Modern" */;
 			productName = LaunchAtLogin;
 		};
 /* End XCSwiftPackageProductDependency section */

@@ -9,7 +9,7 @@ import Foundation
 import SwiftUI
 import Sparkle
 
-final class StatusBar: NSObject, SPUStandardUserDriverDelegate {
+final class StatusBar: NSObject, SPUStandardUserDriverDelegate, SPUUpdaterDelegate {
     private let statusBarItem: NSStatusItem
     private let statusBarMenu = NSMenu()
     private let prefsWindow: PreferencesWindow
@@ -17,7 +17,7 @@ final class StatusBar: NSObject, SPUStandardUserDriverDelegate {
     private lazy var updaterController: SPUStandardUpdaterController = {
         SPUStandardUpdaterController(
             startingUpdater: true,
-            updaterDelegate: nil,
+            updaterDelegate: self,
             userDriverDelegate: self
         )
     }()
@@ -65,6 +65,9 @@ final class StatusBar: NSObject, SPUStandardUserDriverDelegate {
     func updateStatusBar(withIcon icon: NSImage) {
         if let statusBarButton = statusBarItem.button {
             statusBarButton.image = icon
+            // VoiceOver-only label. The image itself is a composited
+            // template glyph that has no meaningful per-pixel description.
+            statusBarButton.setAccessibilityLabel("Spaceman: macOS Spaces overview")
         }
     }
 
@@ -73,6 +76,16 @@ final class StatusBar: NSObject, SPUStandardUserDriverDelegate {
         prefsWindow.makeKeyAndOrderFront(nil)
         NSApp.activate()
     }
+
+    // MARK: - SPUUpdaterDelegate
+
+    func feedURLString(for updater: SPUUpdater) -> String? {
+        let isBeta = UserDefaults.standard.bool(forKey: "betaUpdates")
+        let url = isBeta ? Constants.AppInfo.betaFeedURL : Constants.AppInfo.stableFeedURL
+        return url.absoluteString
+    }
+
+    // MARK: - SPUStandardUserDriverDelegate
 
     var supportsGentleScheduledUpdateReminders: Bool {
         true

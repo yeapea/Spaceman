@@ -31,8 +31,8 @@
 	<key>NSPrincipalClass</key>
 	<string>NSApplication</string>
 	<key>SUFeedURL</key>
-	<string>https://github.com/Jaysce/Spaceman/releases/latest/download/appcast.xml</string>
+	<string>https://github.com/yeapea/Spaceman/releases/latest/download/appcast.xml</string>
 	<key>SUPublicEDKey</key>
-	<string>P929qjJkfvsft7RPb/lqrHzfvhaKpNV5mvelAC4SbwA=</string>
+	<string>kbvETsl3bplGt9+2wgf3iv4ai2U0Gh/O6w72ts6OfTk=</string>
 </dict>
 </plist>

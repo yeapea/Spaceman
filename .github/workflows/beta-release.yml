@@ -1,0 +1,177 @@
+name: Beta Release
+
+on:
+  push:
+    branches:
+      - develop
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "Build/package without publishing"
+        required: true
+        default: true
+        type: boolean
+
+concurrency:
+  group: beta-release
+  cancel-in-progress: true
+
+permissions:
+  contents: write
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: macos-15
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install SwiftLint
+        run: |
+          if ! command -v swiftlint >/dev/null 2>&1; then
+            brew install swiftlint
+          fi
+
+      - name: Run SwiftLint
+        run: swiftlint lint Spaceman --config .swiftlint.yml --reporter github-actions-logging --strict --no-cache
+
+  test:
+    name: Test
+    runs-on: macos-15
+    needs: lint
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install xcbeautify
+        run: |
+          if ! command -v xcbeautify >/dev/null 2>&1; then
+            brew install xcbeautify
+          fi
+
+      - name: Build and Test
+        run: |
+          set -o pipefail
+          xcodebuild \
+            -project Spaceman.xcodeproj \
+            -scheme Spaceman \
+            -configuration Debug \
+            -destination 'platform=macOS' \
+            CODE_SIGNING_ALLOWED=NO \
+            CODE_SIGNING_REQUIRED=NO \
+            test \
+            | xcbeautify --renderer github-actions || exit $?
+
+  beta-release:
+    name: Archive and Publish Beta
+    runs-on: macos-15
+    needs: test
+    env:
+      APP_NAME: Spaceman
+      PROJECT_PATH: Spaceman.xcodeproj
+      SCHEME_NAME: Spaceman
+      ARTIFACTS_DIR: beta-artifacts
+      ALLOW_UNSIGNED_ARCHIVE: "1"
+      SPARKLE_PRIVATE_ED_KEY: ${{ secrets.SPARKLE_PRIVATE_ED_KEY }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set beta release context
+        run: |
+          dry_run="${{ github.event.inputs.dry_run || 'false' }}"
+
+          # Derive version from project file
+          marketing_version="$(
+            grep -Eo 'MARKETING_VERSION = [^;]+' "$PROJECT_PATH/project.pbxproj" \
+              | awk '{print $3}' \
+              | sort -u \
+              | head -n 1
+          )"
+
+          short_sha="$(git rev-parse --short HEAD)"
+          beta_version="${marketing_version}-beta.${short_sha}"
+          release_tag="beta-latest"
+
+          echo "RELEASE_TAG=$release_tag" >> "$GITHUB_ENV"
+          echo "RELEASE_VERSION=$beta_version" >> "$GITHUB_ENV"
+          echo "RELEASE_TITLE=Spaceman $beta_version (Beta)" >> "$GITHUB_ENV"
+          echo "SPARKLE_PUBLIC_BASE_URL=https://github.com/${GITHUB_REPOSITORY}/releases/download/$release_tag/" >> "$GITHUB_ENV"
+          echo "DRY_RUN=$dry_run" >> "$GITHUB_ENV"
+
+      - name: Validate required configuration
+        run: |
+          [[ -n "$SPARKLE_PRIVATE_ED_KEY" ]] || { echo "::error::Missing secret SPARKLE_PRIVATE_ED_KEY"; exit 1; }
+
+      - name: Prepare release directory
+        run: mkdir -p "$ARTIFACTS_DIR"
+
+      - name: Archive app and create DMG
+        run: ./scripts/release/build_dmg.sh "$RELEASE_VERSION" "$ARTIFACTS_DIR"
+
+      - name: Build Sparkle tool
+        run: echo "GENERATE_APPCAST_BIN=$(./scripts/release/build_sparkle_tool.sh generate_appcast)" >> "$GITHUB_ENV"
+
+      - name: Download existing beta appcast
+        if: env.DRY_RUN != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if gh release download beta-latest --repo "$GITHUB_REPOSITORY" --pattern appcast.xml --dir "$ARTIFACTS_DIR" 2>/dev/null; then
+            echo "Downloaded existing beta appcast.xml"
+          else
+            echo "No existing beta appcast.xml found, creating a new feed."
+          fi
+
+      - name: Generate appcast
+        env:
+          SPARKLE_MAX_VERSIONS: "1"
+        run: ./scripts/release/generate_appcast.sh "$ARTIFACTS_DIR"
+
+      - name: Publish beta GitHub release
+        if: env.DRY_RUN != 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          dmg_file="$ARTIFACTS_DIR/Spaceman-$RELEASE_VERSION.dmg"
+          appcast_file="$ARTIFACTS_DIR/appcast.xml"
+
+          [[ -f "$dmg_file" ]] || { echo "::error::DMG not found at $dmg_file"; exit 1; }
+          [[ -f "$appcast_file" ]] || { echo "::error::appcast.xml not found"; exit 1; }
+
+          notes="Beta build from develop branch.
+
+          Commit: ${{ github.sha }}
+          Version: $RELEASE_VERSION"
+
+          if gh release view beta-latest --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            # Delete old assets, update the release
+            gh release delete beta-latest --repo "$GITHUB_REPOSITORY" --yes
+          fi
+
+          gh release create beta-latest \
+            --repo "$GITHUB_REPOSITORY" \
+            --title "$RELEASE_TITLE" \
+            --notes "$notes" \
+            --prerelease \
+            --target develop
+
+          gh release upload beta-latest \
+            "$dmg_file" \
+            "$appcast_file" \
+            --repo "$GITHUB_REPOSITORY" \
+            --clobber
+
+          echo "https://github.com/${GITHUB_REPOSITORY}/releases/tag/beta-latest"
+
+      - name: Upload workflow artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: sparkle-beta-${{ env.RELEASE_VERSION }}
+          path: beta-artifacts/

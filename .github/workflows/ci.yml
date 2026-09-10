@@ -54,26 +54,6 @@ jobs:
       - name: Run SwiftLint
         run: swiftlint lint --config .swiftlint.yml --reporter github-actions-logging --strict --no-cache
 
-  format:
-    # Advisory until .swift-format rules are calibrated against the
-    # existing codebase. Kept visible in CI so drift is surfaced, but
-    # not a gate on merges yet.
-    name: swift-format (advisory)
-    runs-on: macos-15
-    continue-on-error: true
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Run swift-format lint
-        run: |
-          swift-format lint \
-            --configuration .swift-format \
-            --recursive \
-            --strict \
-            Spaceman SpacemanTests
-
   build-test:
     name: Build and Test
     runs-on: macos-15

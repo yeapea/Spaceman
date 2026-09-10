@@ -10,12 +10,28 @@ import Foundation
 
 final class IconCreator {
     private let defaults = UserDefaults.standard
-    private var iconSize = NSSize(width: 18, height: 12)
-    private let gapWidth = CGFloat(5)
-    private let displayGapWidth = CGFloat(15)
+    private var iconSize = Constants.Layout.iconSize
+    private let gapWidth = Constants.Layout.gapWidth
+    private let displayGapWidth = Constants.Layout.displayGapWidth
+
+    /// Returns a single "?" template icon used when the CGS SPI call
+    /// fails. Surfacing a distinct glyph in the status bar is far more
+    /// debuggable than leaving the previous icon or rendering nothing.
+    func getFallbackIcon() -> NSImage {
+        let size = Constants.Layout.iconSize
+        let textRect = NSRect(origin: .zero, size: size)
+        let image = NSImage(size: size, flipped: false) { _ in
+            "?".drawVerticallyCentered(
+                in: textRect,
+                withAttributes: self.getStringAttributes(alpha: 1, fontSize: 12))
+            return true
+        }
+        image.isTemplate = true
+        return image
+    }
 
     func getIcon(for spaces: [Space]) -> NSImage {
-        iconSize.width = 18
+        iconSize.width = Constants.Layout.iconSize.width
         let spacemanStyle = SpacemanStyle(rawValue: defaults.integer(forKey: "displayStyle"))
         var icons = [NSImage]()
 
@@ -43,7 +59,7 @@ final class IconCreator {
         case .desktopNumbersAndRects:
             icons = createRectWithNumbersIcons(icons, spaces, desktopsOnly: true)
         case .text:
-            iconSize.width = 49
+            iconSize.width = Constants.Layout.textIconWidth
             icons = createNamedIcons(icons, spaces)
         default:
             break
@@ -58,7 +74,7 @@ final class IconCreator {
 
         for space in spaces {
             let textRect = NSRect(origin: CGPoint.zero, size: iconSize)
-            let spaceNumber = NSString(string: String(space.spaceNumber))
+            let spaceNumber = String(space.spaceNumber)
             let attributes = getStringAttributes(
                 alpha: space.isCurrentSpace ? 1 : 0.4,
                 fontSize: 12)
@@ -83,7 +99,7 @@ final class IconCreator {
             let number = desktopsOnly ? space.desktopNumber : space.spaceNumber
             let numberImage = NSImage(size: iconSize, flipped: false) { _ in
                 if let number {
-                    let spaceNumber = NSString(string: String(number))
+                    let spaceNumber = String(number)
                     spaceNumber.drawVerticallyCentered(
                         in: textRect,
                         withAttributes: self.getStringAttributes(alpha: 1))
@@ -120,7 +136,7 @@ final class IconCreator {
 
         for space in spaces {
             let textRect = NSRect(origin: CGPoint.zero, size: iconSize)
-            let spaceText = NSString(string: "\(space.spaceNumber): \(space.spaceName.uppercased())")
+            let spaceText = "\(space.spaceNumber): \(space.spaceName.uppercased())"
             let textImage = NSImage(size: iconSize, flipped: false) { _ in
                 spaceText.drawVerticallyCentered(
                     in: textRect,

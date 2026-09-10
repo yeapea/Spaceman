@@ -9,13 +9,11 @@ import SwiftUI
 import KeyboardShortcuts
 
 final class AppDelegate: NSObject, NSApplicationDelegate {
-
     private let statusBar = StatusBar()
     private let spaceObserver = SpaceObserver()
     private let iconCreator = IconCreator()
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-
         spaceObserver.delegate = self
         spaceObserver.updateSpaceInformation()
         NSApp.activate()
@@ -24,9 +22,6 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
     }
 
-    func applicationWillTerminate(_ aNotification: Notification) {
-        // Insert code here to tear down your application
-    }
 }
 
 extension AppDelegate: SpaceObserverDelegate {
@@ -34,19 +29,19 @@ extension AppDelegate: SpaceObserverDelegate {
         let icon = iconCreator.getIcon(for: spaces)
         statusBar.updateStatusBar(withIcon: icon)
     }
+
+    func didFailToObserveSpaces() {
+        statusBar.updateStatusBar(withIcon: iconCreator.getFallbackIcon())
+    }
 }
 
 @main
 struct SpacemanApp: App {
-
     @NSApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
 
     var body: some Scene {
-
         Settings {
             EmptyView()
         }
-
     }
-
 }
